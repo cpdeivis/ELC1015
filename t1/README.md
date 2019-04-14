@@ -1,6 +1,6 @@
 # Trabalho 1 - Transformada Discreta de Cosseno
 
-Desenvolva um programa que aplique a Transformada Discreta de Cosseno (DCT) e sua inversa (IDCT) em um sinal amostrado unidimensional. O programa deve ler as amostras de sinal de um arquivo binário “*input.dct*”, onde o cabeçalho é um dado do tipo Unsigned Int ( 4 bytes ) representando a quantidade de amostras a serem lidas, e as amostras são armazenadas sequencialmente, cada uma ocupando 1 byte ( cada amostra deverá ter valor entre -127 e 128 ). O número de amostras deve variar entre **8 e 64**. O número de funções base deve ser igual ao número de amostras do arquivo.
+Desenvolva um programa que aplique a Transformada Discreta de Cosseno (DCT) e sua inversa (IDCT) em um sinal amostrado unidimensional. O programa deve ler as amostras de sinal de um arquivo binário “*input.dct*”, onde o cabeçalho é um dado do tipo Unsigned Int ( 4 bytes ) representando a quantidade de amostras a serem lidas, e as amostras são armazenadas sequencialmente, cada uma ocupando 1 byte ( cada amostra deverá ter valor entre -128 e 127 ). O número de amostras deve variar entre **8 e 64**. O número de funções base deve ser igual ao número de amostras do arquivo.
 
 Unsigned Int 4 Bytes | 1 Byte | 1 Byte | 1 Byte | 1 Byte
 ------------ | ------------- | ------------- | ------------- | -------------
