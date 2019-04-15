@@ -3,7 +3,7 @@
 
 #include "General.hpp"
 #include "Amostra.hpp"
-#include <vector>
+#include <list>
 
 class Grafico : public General{
     private:
@@ -14,10 +14,13 @@ class Grafico : public General{
         void generatePanels(int size, int margem);
     
     public:
-        std::vector<Amostra*> amostras;
+        std::list<Amostra*> amostras;
         Grafico(int x, int y, int w, int h);
         void render();
         bool colision(int x, int y);
+        int getX2();
+        int getY2();
+        void setDimension(int w, int h);
         ~Grafico();
 };
 

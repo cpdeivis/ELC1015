@@ -14,6 +14,8 @@ class Botao : public General{
         Botao(int x, int y, int w, int h);
         void render();
         bool colision(int x, int y);
+        int getX2();
+        int getY2();
         ~Botao();
 };
 

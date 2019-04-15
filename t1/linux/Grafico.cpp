@@ -30,8 +30,8 @@ void Grafico::render(){
     line(Escala.x1, Drawable.y1 + Drawable.midleY(), Drawable.x2, Drawable.y1 + Drawable.midleY());
 
     //Faz o render das amostras desse gráfico
-    for (int i = 0; i < amostras.size(); i++){
-        amostras[i]->render();
+    for(Amostra * ponto : this->amostras){
+        ponto->render();
     }
 }
 
@@ -42,4 +42,16 @@ bool Grafico::colision(int x, int y){
 
 Grafico::~Grafico(){
     //destructor
+}
+
+int Grafico::getX2(){
+    return x+w;
+}
+
+int Grafico::getY2(){
+    return y+h;
+}
+void Grafico::setDimension(int w, int h){
+    this->w = w;
+    this->h = h;
 }

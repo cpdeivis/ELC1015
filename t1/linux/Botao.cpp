@@ -29,6 +29,14 @@ bool Botao::colision(int x, int y){
     return (x > this->x && x < this->x+w) && (y > this->y && y < this->y+h);
 }
 
+int Botao::getX2(){
+    return x + w;
+}
+
+int Botao::getY2(){
+    return y + h;
+}
+
 Botao::~Botao(){
     //destructor
 }
