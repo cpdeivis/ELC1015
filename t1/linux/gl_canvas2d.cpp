@@ -229,9 +229,6 @@ void initCanvas(int w, int h, const char *title)
    altura  = h;
 
    glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
-   glutInitContextVersion(1, 1);
-   glutInitContextFlags (GLUT_CORE_PROFILE);
-   glutInitContextFlags (GLUT_COMPATIBILITY_PROFILE );
 
    glutInitWindowSize (w, h);
    glutInitWindowPosition (200, 200);

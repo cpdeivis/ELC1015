@@ -1,2 +1,4 @@
 cg/*
-t1/.vscode/*
+t1/linux/.vscode/*
+*.o
+*.dct
