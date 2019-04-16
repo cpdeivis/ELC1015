@@ -6,11 +6,13 @@
 class Amostra : public General{
     private:
         int raio;
-        std::int16_t val;
     
     public:
+        std::int16_t val;
+
         Amostra(int x, int y, int raio, std::int16_t val);
         Amostra(int x, int y, int raio, std::int16_t val, Cor cor);
+        void setLabel();
         void render();
         bool colision(int x, int y);
         ~Amostra();

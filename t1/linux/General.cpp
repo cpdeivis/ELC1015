@@ -4,6 +4,7 @@ General::General(int x, int y){
     this->x = x;
     this->y = y;
     this->focus = false;
+    this->c = {0.0,0.0,0.0};
 }
 
 General::General(int x, int y, Cor c){

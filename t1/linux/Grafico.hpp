@@ -11,6 +11,7 @@ class Grafico : public General{
         Panel Title;
         Panel Drawable;
         Panel Escala; 
+        std::int16_t max;
         void generatePanels(int size, int margem);
     
     public:
@@ -21,6 +22,8 @@ class Grafico : public General{
         int getX2();
         int getY2();
         void setDimension(int w, int h);
+        void setMax(std::int16_t max);
+        void ajustAmostras();
         ~Grafico();
 };
 

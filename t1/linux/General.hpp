@@ -3,14 +3,12 @@
 
 #include <string>
 
-struct Cor
-{
+struct Cor{
     double r; //Vermelho
     double g; //Verde
     double b; //Azul
 };
-struct Panel
-{
+struct Panel{
     int x1, y1, x2, y2;
 
     int distX()

@@ -11,6 +11,10 @@ Amostra::Amostra(int x, int y, int raio, std::int16_t val, Cor cor):General(x,y,
     this->val = val;
 }
 
+void Amostra::setLabel(){
+    this->label = std::to_string(this->val);
+}
+
 void Amostra::render(){
     color(c.r, c.g, c.b);
     if(focus){
