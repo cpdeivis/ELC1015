@@ -2,6 +2,13 @@
 #include "gl_canvas2d.hpp"
 #include <iostream>
 
+Grafico::Grafico() : General(0, 0){
+    this->w = 0;
+    this->h = 0;
+    this->c = {1.0, 0.0, 0.0}; //Vermelho
+    this->max = 0;
+}
+
 Grafico::Grafico(int x, int y, int w, int h) : General(x, y){
     this->w = w;
     this->h = h;
@@ -58,6 +65,9 @@ int Grafico::getY2(){
 void Grafico::setDimension(int w, int h){
     this->w = w;
     this->h = h;
+
+    generatePanels(30, 5);
+    ajustAmostras();
 }
 
 void Grafico::setMax(std::int16_t max){
@@ -65,16 +75,18 @@ void Grafico::setMax(std::int16_t max){
 }
 
 void Grafico::ajustAmostras(){
-    int passo_x = this->Drawable.distX()/this->amostras.size();
-    double rel_y = (double)(this->Drawable.distY())/(double)(max*2);
-    int aux = this->Drawable.x1;
-    int auy = 0, mdy = this->Drawable.midleY() + this->Drawable.y1;
-    for(Amostra * ponto : this->amostras){
-        // Resolve X
-        ponto->setX(aux);
-        aux += passo_x;
-        //Resolve Y
-        auy = (int)((double)(ponto->val)*rel_y);
-        ponto->setY(mdy + auy);
-    } 
+    if(max != 0 && !amostras.empty()){
+        int passo_x = this->Drawable.distX()/this->amostras.size();
+        double rel_y = (double)(this->Drawable.distY())/(double)(max*2);
+        int aux = this->Drawable.x1;
+        int auy = 0, mdy = this->Drawable.midleY() + this->Drawable.y1;
+        for(Amostra * ponto : this->amostras){
+            // Resolve X
+            ponto->setX(aux);
+            aux += passo_x;
+            //Resolve Y
+            auy = (int)((double)(ponto->val)*rel_y);
+            ponto->setY(mdy + auy);
+        } 
+    }
 }

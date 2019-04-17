@@ -16,6 +16,7 @@ class Grafico : public General{
     
     public:
         std::list<Amostra*> amostras;
+        Grafico();
         Grafico(int x, int y, int w, int h);
         void render();
         bool colision(int x, int y);

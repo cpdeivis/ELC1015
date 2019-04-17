@@ -16,24 +16,48 @@ namespace Utils{
     Grafico *gIDCT;
     Grafico *gDiff;
 
-    int border = 5;
-
     std::list<Grafico *> graficos;
     std::list<Botao *> botoes;
-    void initGraficos(){
-        int w = 495;
-        int h = 280;
 
-        gIDCT = new Grafico(border, border, w, h);
+    void dimensions(int H, int W){
+        int w = (int)((double)W * 0.489);
+        int h = (int)((double)H * 0.458);
+        int b = (int)((double)H * 0.0085);
+
+        gIDCT->setX(b);
+        gIDCT->setY(b);
+        gIDCT->setDimension(w, h);
+
+        gEntrada->setX(b);
+        gEntrada->setY(gIDCT->getY2() + b);
+        gEntrada->setDimension(w, h);
+
+        gDiff->setX(gIDCT->getX2() + b);
+        gDiff->setY(b);
+        gDiff->setDimension(w, h);
+
+        gDCT->setX(gDiff->getX());
+        gDCT->setY(gEntrada->getY());
+        gDCT->setDimension(w, h);
+
+        auto passo = 0;
+        for(Botao * bt : botoes){
+            bt->setX(((b + 100)*passo));
+            bt->setY(gEntrada->getY2() + b);
+            passo++;
+        }    
+    }
+    void initGraficos(){
+        gIDCT = new Grafico();
         gIDCT->setLabel("I D C T");
 
-        gEntrada = new Grafico(border, gIDCT->getY2() + border, w, h);
+        gEntrada = new Grafico();
         gEntrada->setLabel("I N I C I A L");
 
-        gDiff = new Grafico(gIDCT->getX2() + border, border, w, h);
+        gDiff = new Grafico();
         gDiff->setLabel("D I F F");
 
-        gDCT = new Grafico(gDiff->getX(), gEntrada->getY(), w, h);
+        gDCT = new Grafico();
         gDCT->setLabel("D C T");
 
         graficos.push_back(gEntrada);
@@ -153,6 +177,11 @@ namespace Utils{
         }
         return;
     }
+    void Aplicar(){
+        DCT();
+        IDCT();
+        DIFF();
+    }
     void clearAmostras(){
         for (Grafico *g : graficos)
         {
@@ -163,30 +192,20 @@ namespace Utils{
     void initBotaos(){
         botoes.clear();
 
-        Botao *read = new Botao(border, gEntrada->getY2() + border);
+        Botao *read = new Botao(0,0);
         read->setLabel("READ");
         read->callback = readFile;
         
-        Botao *dct = new Botao(border + read->getX2(), read->getY());
-        dct->setLabel("DCT");
-        dct->callback = DCT;
-        
-        Botao *idct = new Botao(border + dct->getX2(), read->getY());
-        idct->setLabel("IDCT");
-        idct->callback = IDCT;
-        
-        Botao *diff = new Botao(border + idct->getX2(), read->getY());
-        diff->setLabel("DIFF");
-        diff->callback = DIFF;
+        Botao *aplica = new Botao(0,0);
+        aplica->setLabel("APLICAR");
+        aplica->callback = Aplicar;
 
-        Botao *clear = new Botao(border + diff->getX2(), read->getY());
+        Botao *clear = new Botao(0,0);
         clear->setLabel("CLEAR");
         clear->callback = clearAmostras;
 
         botoes.push_back(read);
-        botoes.push_back(dct);
-        botoes.push_back(idct);
-        botoes.push_back(diff);
+        botoes.push_back(aplica);
         botoes.push_back(clear);
     }
 } // namespace Utils
@@ -199,8 +218,7 @@ void keyboardUp(int key){
     //nothing to do
 }
 void mouse(int button, int state, int wheel, int direction, int x, int y){
-    //TODO
-    y = (y - 610) * -1;
+    y = (y - altura) * -1;
     if (button == 0 && state == 0){
         for (Botao *b : Utils::botoes)
             if (b->colision(x, y)){
@@ -225,17 +243,23 @@ void mouse(int button, int state, int wheel, int direction, int x, int y){
             a->focus = false;
         }
 }
+
 void render(){
     for (Botao *b : Utils::botoes)
         b->render();
     for (Grafico *g : Utils::graficos)
         g->render();
 }
+void onResize(){
+    Utils::dimensions(altura, largura);
+}
 
 int main(int argc, char const *argv[]){
-    initCanvas(1005, 610, "Trabalho 1 - Deivis Costa Pereira");
     Utils::initGraficos();
     Utils::initBotaos();
+    Utils::dimensions(610, 1005);
+    
+    initCanvas(1005, 610, "Trabalho 1 - Deivis Costa Pereira");
     runCanvas();
     return 0;
 }

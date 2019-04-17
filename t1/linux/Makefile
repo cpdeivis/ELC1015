@@ -4,7 +4,7 @@ LDFLAGS = -lGL -lGLU -lglut
 
 all: main_cpp
 
-main_cpp.o: main_cpp.cpp gl_canvas2d.hpp Botao.hpp
+main_cpp.o: main_cpp.cpp gl_canvas2d.hpp
 gl_canvas2d.o: gl_canvas2d.cpp gl_canvas2d.hpp
 Grafico.o: Grafico.cpp Grafico.hpp Amostra.hpp General.hpp
 Botao.o: Botao.cpp Botao.hpp General.hpp

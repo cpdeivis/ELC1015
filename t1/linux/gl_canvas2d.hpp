@@ -11,6 +11,8 @@
 
 #define PI_2 6.28318530717958
 
+//adiciona altura ao header para serem utilizados na main
+extern int largura, altura;
 
 //funcoes da biblioteca
 void point(int x, int y); //coordeandas do ponto
@@ -42,6 +44,7 @@ void specialUp(int key);
 void mouse(int bt, int st, int wheel, int direction, int x, int y);
 void render();
 void mouseWheelCB(int wheel, int direction, int x, int y);
+void onResize();//callback de resize
 
 
 //funcao de inicializacao da Canvas2D. Recebe a largura e altura

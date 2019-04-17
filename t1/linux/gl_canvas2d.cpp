@@ -184,6 +184,9 @@ void reshape (int w, int h)
    gluOrtho2D (0.0, (GLdouble) w, 0.0, (GLdouble) h);
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity ();
+
+   //chama a callback do resize aqui
+   onResize();
 }
 
 void inicializa()

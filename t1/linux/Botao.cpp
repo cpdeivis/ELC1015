@@ -2,7 +2,7 @@
 #include "gl_canvas2d.hpp"
 
 Botao::Botao(int x, int y):General(x, y){
-    w = 70;
+    w = 100;
     h = 30;
 }
 
