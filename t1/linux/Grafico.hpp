@@ -1,6 +1,8 @@
 #ifndef GRAFICO_H
 #define GRAFICO_H
 
+#pragma once
+
 #include "General.hpp"
 #include "Amostra.hpp"
 #include <list>
@@ -22,7 +24,7 @@ class Grafico : public General{
         bool colision(int x, int y);
         int getX2();
         int getY2();
-        void setDimension(int w, int h);
+        void setDimension(int x, int y, int w, int h);
         void setMax(std::int16_t max);
         void ajustAmostras();
         ~Grafico();

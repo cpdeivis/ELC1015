@@ -1,6 +1,8 @@
 #ifndef AMOSTRA_H
 #define AMOSTRA_H
 
+#pragma once
+
 #include "General.hpp"
 
 class Amostra : public General{

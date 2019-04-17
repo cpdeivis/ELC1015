@@ -1,6 +1,8 @@
 #ifndef BOTAO_H
 #define BOTAO_H
 
+#pragma once
+
 #include "General.hpp"
 #include <functional>
 

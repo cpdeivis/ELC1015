@@ -1,6 +1,8 @@
 #ifndef GENERAL_H
 #define GENERAL_H
 
+#pragma once
+
 #include <string>
 
 struct Cor{
@@ -29,8 +31,7 @@ struct Panel{
     }
 };
 
-class General
-{
+class General{
 protected:
     int x, y;
     std::string label;
