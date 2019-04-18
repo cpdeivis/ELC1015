@@ -1,7 +1,19 @@
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
+
 Instruções:
+    - O arquivo "input.dct" deve estar na "pasta pai" da do projeto codeblocks, segue estrutura:
+        |- *\pasta_pai\
+            |- lib\*
+            |- t1_dcpereira\* <- "pasta do projeto"
+            |- freeglut.dll
+            |- glfw3.dll
+            |- input.dct <- "arquivo de entrada aqui"
+            
     - Para abrir o arquivo("input.dct"), utilizar o botão "ABRIR";
     - Para aplicar as funções(DCT, IDCT, DIFF) na amostra aberta, utilizar o botão "APLICAR";
-    - Para limpar os gráfico, utilizar o botão "LIMPAR";
+    - Para utilizar o vetor de quantização com fator 5, usar o botão "QUANT 5";
+    - Para limpar os gráficos e vetor de quantização, utilizar o botão "LIMPAR";
     - Para salvar o resultado reconstruído em "output.dct", utilizar o botão "SALVAR";
 
 Requisitos: 
