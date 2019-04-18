@@ -28,16 +28,22 @@ void Grafico::generatePanels(int size, int margem){
 }
 
 void Grafico::render(){
+    // Contorno externo e área do Título
     color(c.r, c.g, c.b);
     rect(x, y, x + w, y + h);
     rect(Title.x1, Title.y1, Title.x2, Title.y2);
     text(Title.x1 + 1, Title.y1 + Title.midleY(), label.c_str());
+    // Escalas
     color(0.0, 0.0, 0.0);
-    //TODO: AS ESCALAS, AQUI SÓ TEM A LINHA
+    // eixo Y
     line(Escala.x1, Escala.y1, Escala.x2, Escala.y2);
+    // valor máximo
     text(Escala.x1 - 35, Escala.y2 - 5, std::to_string(max).c_str());
+    // valor mínimo
     text(Escala.x1 - 35, Escala.y1, std::to_string(max*-1).c_str());
+    // eixo X
     line(Escala.x1, Drawable.y1 + Drawable.midleY(), Drawable.x2, Drawable.y1 + Drawable.midleY());
+    //valor 0
     text(Escala.x1 - 35, Drawable.y1 + Drawable.midleY() - 3, "0");
 
     //Faz o render das amostras desse gráfico
@@ -45,17 +51,15 @@ void Grafico::render(){
         auto it1 = this->amostras.begin();
         auto it2 = it1;
         it2++;
-        (*it1)->render();
+        (*it1)->render(); // aqui chama a Amostra::render()
         while(it2 != this->amostras.end()){
             (*it2)->render();
+            //linha de ligação entre os pontos
             line((*it1)->getX(), (*it1)->getY(), (*it2)->getX(), (*it2)->getY());
-            it1++;
-            it2++;
+            it1++;// primeiro ponto
+            it2++;// segundo ponto
         }
     }
-    // for(Amostra * ponto : this->amostras){
-    //     ponto->render();
-    // }
 }
 
 bool Grafico::colision(int x, int y){
@@ -75,6 +79,9 @@ int Grafico::getY2(){
 }
 
 void Grafico::setDimension(int x, int y, int w, int h){
+    /* Informa o tamanho do grafico e suas coordenadas
+        gera/atualiza as panels de acordo com a dimensão atual do gráfico
+        reposiciona as amostras na área de Drawable*/
     this->x = x;
     this->y = y;
     this->w = w;
@@ -89,9 +96,13 @@ void Grafico::setMax(std::int16_t max){
 }
 
 void Grafico::ajustAmostras(){
+    //Caso existam amostras, adequa o seu posicionamento no gráfico
     if(max != 0 && !amostras.empty()){
+        // calculo da distância horizontal entre as amostras (eixo X)
         int passo_x = Drawable.distX()/(amostras.size() == 1 ? 2 : amostras.size() - 1);
+        // calculo da distância vertical entre as amostras (eixo Y)
         double rel_y = (double)(this->Drawable.distY())/(double)(max*2);
+        // Valores base das coordenadas (x,y), respectivamente
         int aux = this->Drawable.x1;
         int auy = 0, mdy = this->Drawable.midleY() + this->Drawable.y1;
         for(Amostra * ponto : this->amostras){

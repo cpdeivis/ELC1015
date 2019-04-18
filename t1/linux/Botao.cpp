@@ -12,6 +12,8 @@ Botao::Botao(int x, int y, int w, int h):General(x, y){
 }
 
 void Botao::render(){
+    /* Função de renderização da classe Botao
+        se utiliza um retângulo para representar a estrutura */
     color(c.r, c.g, c.b);
     if(focus){
         rectFill(x, y, x+w, y+h);
@@ -20,12 +22,12 @@ void Botao::render(){
     else
         rect(x, y, x+w, y+h);
     
-    //TODO: ARRUMAR A LABEL NO LUGAR CERTO
     text(x+10, y+10, label.c_str());
     
 }
 
 bool Botao::colision(int x, int y){
+    //Checa a colisão de um determinado ponto com o objeto
     return (x > this->x && x < this->x+w) && (y > this->y && y < this->y+h);
 }
 

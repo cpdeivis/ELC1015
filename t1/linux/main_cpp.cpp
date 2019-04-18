@@ -10,7 +10,8 @@
 #include "Amostra.hpp"
 #include "Botao.hpp"
 
-namespace Utils{
+// TUDO PRA 1-D AQUI
+namespace UniDim{
     Grafico *gEntrada;
     Grafico *gDCT;
     Grafico *gIDCT;
@@ -28,7 +29,6 @@ namespace Utils{
 
             int num_amostras;
             file.read(reinterpret_cast<char*>(&num_amostras), 4);
-            std::cout << num_amostras << std::endl;
             std::int8_t amostra;
             Amostra * ponto;
             std::int16_t max = 0;
@@ -140,22 +140,21 @@ namespace Utils{
             
             gDCT->setMax(maior);
             gDCT->ajustAmostras();
-            //CALCULA PARA A IDCT
+            //VAI PARA A IDCT
             IDCT();
         }
         return;
     }
     void clearAmostras(){
-        for (Grafico *g : graficos)
-        {
-            //Limpa todas as amostras
+        //Limpa as amostras de cada gráfico e 'reinicia' a escala
+        for (Grafico *g : graficos){
             g->amostras.clear();
+            g->setMax(0);
         }
     }
     // END CALLBACKS
-    void initBotaos(){  
-        botoes.clear();
-
+    void initBotoes(){  
+        // Inicializa os Botões
         Botao *read = new Botao(0,0);
         read->setLabel("ABRIR");
         read->callback = readFile;
@@ -169,13 +168,13 @@ namespace Utils{
         quantiza->callback = DCT;
 
         Botao *clear = new Botao(0,0);
-        clear->setLabel("CLEAR");
-        clear->setColor(1.0,0.0,0.0);
+        clear->setLabel("LIMPAR");
+        clear->setColor(1.0,0.0,0.0);// VERMELHO
         clear->callback = clearAmostras;
 
         Botao *save = new Botao(0,0);
         save->setLabel("SALVAR");
-        save->setColor(0.0,0.8,0.0);
+        save->setColor(0.0,0.8,0.0);// VERDE
         save->callback = saveFile;
 
         botoes.push_back(read);
@@ -185,6 +184,7 @@ namespace Utils{
         botoes.push_back(save);
     }
     void initGraficos(){
+        // Inicializa os graficos
         gIDCT = new Grafico();
         gIDCT->setLabel("I D C T");
 
@@ -202,9 +202,9 @@ namespace Utils{
         graficos.push_back(gIDCT);
         graficos.push_back(gDiff);
     }
-} // namespace Utils
+} // namespace UniDim
 
-//*--FUNÇÕES DA CANVAS--*
+//*-- FUNÇÕES DA CANVAS --*
 void keyboard(int key){
     //nothing to do
 }
@@ -212,23 +212,27 @@ void keyboardUp(int key){
     //nothing to do
 }
 void mouse(int button, int state, int wheel, int direction, int x, int y){
-    y = (y - altura) * -1;
+    // REALIZA-SE AS VERIFICAÇÕES DE COLISÃO DO PONTEIRO DO MOUSE
+    // COM OS OBJETOS NECESSÁRIOS
+    y = (y - altura) * -1; // precisei chamar a 'altura' da canvas
     if (button == 0 && state == 0){
-        for (Botao *b : Utils::botoes)
+        for (Botao *b : UniDim::botoes)
             if (b->colision(x, y)){
-                b->callback();
+                //CASO TENHA CLIQUE + COLISÃO
+                b->callback();// CHAMA A FUNÇÃO RESPECTIVA DO BOTÃO
                 return;
             }
     }
-    for (Botao *b : Utils::botoes){
+    // QUANDO TIVER 'HOVER' COM ALGUM BOTÃO
+    for (Botao *b : UniDim::botoes){
         if (b->colision(x, y)){
             b->focus = true;
             return;
         }
         b->focus = false;
     }
-        
-    for (Grafico *g : Utils::graficos)
+    // QUANDO TIVER 'HOVER' COM ALGUMA AMOSTRA
+    for (Grafico *g : UniDim::graficos)
         for (Amostra *a : g->amostras){
             if (a->colision(x, y)){
                 a->focus = true;
@@ -238,34 +242,41 @@ void mouse(int button, int state, int wheel, int direction, int x, int y){
         }
 }
 void render(){
-    for (Botao *b : Utils::botoes)
+    // loops que renderizam os objetos em Tela
+    for (Botao *b : UniDim::botoes)
         b->render();
-    for (Grafico *g : Utils::graficos)
+    for (Grafico *g : UniDim::graficos)
         g->render();
 }
 void onResize(){
-    int w = floor((double)largura * 0.48725);
-    int h = floor((double)altura * 0.458);
-    int bx = ceil((double)largura * 0.0085);
-    int by = ceil((double)altura * 0.0085);
+    /* Está função foi incluída na .h da canvas, e é IMPLEMENTADA AQUI
+    ela é chamada na resize(int w, int h) do .cpp da canvas
 
-    Utils::gIDCT->setDimension(bx, by, w, h);
-    Utils::gEntrada->setDimension(bx, Utils::gIDCT->getY2() + by, w, h);
-    Utils::gDiff->setDimension(Utils::gIDCT->getX2() + bx, by, w, h);
-    Utils::gDCT->setDimension(Utils::gDiff->getX(), Utils::gEntrada->getY(), w, h);
+    É RESPONSÁVEL POR REDIMENSIONAR OS GRÁFICOS
+    DE ACORDO COM AS PROPORÇÕES LOGO ABAIXO
+    */
+    int w = floor((double)largura * 0.48725);// largura do gráfico
+    int h = floor((double)altura * 0.458);// altura do gráfico
+    int bx = ceil((double)largura * 0.0085);// borda em x
+    int by = ceil((double)altura * 0.0085);// borda em y
+
+    UniDim::gIDCT->setDimension(bx, by, w, h);
+    UniDim::gEntrada->setDimension(bx, UniDim::gIDCT->getY2() + by, w, h);
+    UniDim::gDiff->setDimension(UniDim::gIDCT->getX2() + bx, by, w, h);
+    UniDim::gDCT->setDimension(UniDim::gDiff->getX(), UniDim::gEntrada->getY(), w, h);
 
     auto passo = bx;
-    for (Botao *bt : Utils::botoes){
+    for (Botao *bt : UniDim::botoes){
         bt->setX(passo);
-        bt->setY(Utils::gEntrada->getY2() + by);
+        bt->setY(UniDim::gEntrada->getY2() + by);
         passo += bx + 100;
     }
 }
 //END FUNÇÕES DA CANVAS
 
 int main(int argc, char const *argv[]){
-    Utils::initGraficos();
-    Utils::initBotaos();
+    UniDim::initGraficos();
+    UniDim::initBotoes();
     
     initCanvas(1005, 610, "Trabalho 1 - Deivis Costa Pereira");
     runCanvas();

@@ -1,3 +1,6 @@
+/* Classe Amostra:
+ *   - inclui o raio e o valor da amostra; */
+
 #ifndef AMOSTRA_H
 #define AMOSTRA_H
 

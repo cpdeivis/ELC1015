@@ -1,10 +1,13 @@
 #include "General.hpp"
 
+/* Implementação das funções Gerais:
+   Getters e Setters. */
+
 General::General(int x, int y){
     this->x = x;
     this->y = y;
     this->focus = false;
-    this->c = {0.0,0.0,0.0};
+    this->c = {0.0, 0.0, 0.0};
 }
 
 General::General(int x, int y, Cor c){
@@ -55,7 +58,7 @@ void General::setLabel(std::string label){
     this->label = label;
 }
 
-General::~General(){
+General::~General(){    
     //destructor
 }
 
@@ -64,4 +67,21 @@ bool General::colision(int x, int y){
 }
 
 void General::render(){
+}
+
+// Funções das Panels
+int Panel::distX(){
+    return x2 - x1;
+}
+
+int Panel::distY(){
+    return y2 - y1;
+}
+
+int Panel::midleX(){
+    return (int)(distX() / 2);
+}
+
+int Panel::midleY(){
+    return (int)(distY() / 2);
 }

@@ -1,3 +1,6 @@
+/* Define uma Classe Geral para todos os objetos que serão manipulados em Tela;
+ * Explicita as funções inerentes a todos os objetos filhos. */
+
 #ifndef GENERAL_H
 #define GENERAL_H
 
@@ -10,25 +13,14 @@ struct Cor{
     double g; //Verde
     double b; //Azul
 };
+// Panel: sub-espaço da Tela
 struct Panel{
     int x1, y1, x2, y2;
 
-    int distX()
-    {
-        return x2 - x1;
-    }
-    int distY()
-    {
-        return y2 - y1;
-    }
-    int midleX()
-    {
-        return (int)(distX() / 2);
-    }
-    int midleY()
-    {
-        return (int)(distY() / 2);
-    }
+    int distX();
+    int distY();
+    int midleX();
+    int midleY();
 };
 
 class General{

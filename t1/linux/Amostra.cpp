@@ -16,6 +16,7 @@ void Amostra::setLabel(){
 }
 
 void Amostra::render(){
+    // Utiliza um Circulo de tamanho 'r' para representar o objeto
     color(c.r, c.g, c.b);
     if(focus){
         circle(x, y, raio, 20);

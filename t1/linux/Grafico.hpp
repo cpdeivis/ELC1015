@@ -1,3 +1,12 @@
+/* Classe Grafico:
+ *   - inclui os atributos de dimensão(w ,h)
+ *   - inclui a lista de amostras pertencentes ao gráfico 
+ *   - inclui as Panels do gráfico:
+ *       - Title: área destinada ao titulo;
+ *       - Drawable: área destinada ao render das amostras;
+ *       - Escala: legendas e eixos do gráfico;
+ *   - atributo max, destinado a cálculo da escala/proporção;*/
+
 #ifndef GRAFICO_H
 #define GRAFICO_H
 
