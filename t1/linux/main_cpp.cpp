@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <list>
+#include <vector>
 
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h>
@@ -19,8 +20,16 @@ namespace UniDim{
 
     std::list<Grafico *> graficos;
     std::list<Botao *> botoes;
+    std::vector<int> quantizacao;
 
     //*-- CALLBACKS DOS BOTÕES --*
+    void montaQuantizacao(int fator){
+        // Constroi o 'vetor' 1D de quantização
+        quantizacao.clear();
+        for (int i = 0, N = gEntrada->amostras.size(); i < N; i++){
+            quantizacao.push_back(1 + (1 + i) * fator);
+        } 
+    }
     void readFile(){
         if(gEntrada->amostras.empty()){
             std::ifstream file("input.dct", std::ios::binary);
@@ -46,6 +55,8 @@ namespace UniDim{
 
             gEntrada->setMax(max);
             gEntrada->ajustAmostras();
+
+            montaQuantizacao(0);//sem quantização
         }
         return;
     }
@@ -94,7 +105,7 @@ namespace UniDim{
                 sum = 0.;
                 for(Amostra * dct : gDCT->amostras){
                     s = k > 0 ? 1. : sqrt(.5);
-                    sum += s * dct->val * cos(M_PI * (i + .5) * k/N);
+                    sum += s * dct->val * quantizacao[k] * cos(M_PI * (i + .5) * k/N);
                     k++;
                 }
 
@@ -129,7 +140,7 @@ namespace UniDim{
                     k++;
                 }
                 
-                val = (std::int16_t)(sum * sqrt(2.0/N));
+                val = (std::int16_t)((sum * sqrt(2.0/N))/quantizacao[i]);
                 dct = new Amostra(0, 0, 4, val);
                 dct->setLabel();
                 gDCT->amostras.push_back(dct);
@@ -151,6 +162,16 @@ namespace UniDim{
             g->amostras.clear();
             g->setMax(0);
         }
+        //limpa a quantizacao
+        quantizacao.clear();
+    }
+    void quantiza10(){
+        //Quantiza com fator 10
+        montaQuantizacao(10);
+        gDCT->amostras.clear();
+        gIDCT->amostras.clear();
+        gDiff->amostras.clear();
+        DCT();
     }
     // END CALLBACKS
     void initBotoes(){  
@@ -164,8 +185,8 @@ namespace UniDim{
         aplica->callback = DCT;
 
         Botao *quantiza = new Botao(0,0);
-        quantiza->setLabel("QUANTIZA");
-        quantiza->callback = DCT;
+        quantiza->setLabel("QUANT 10");
+        quantiza->callback = quantiza10;
 
         Botao *clear = new Botao(0,0);
         clear->setLabel("LIMPAR");
