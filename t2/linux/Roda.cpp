@@ -16,10 +16,11 @@ Roda::Roda(Point * origem){
 
 void Roda::render(){
     color(0,0,0);
-    circleFill(org->x, org->y, 54, 20);
+    org->pCircle(52, true);
     color(1,1,1);
-    circleFill(org->x, org->y, 50, 20);
+    org->pCircle(50, true);
     color(0,0,0);
+    org->pCircle(4, true);
     for(Point * p : raios){
         p->translate(-org->x,-org->y);
         p->aplica();
@@ -27,6 +28,7 @@ void Roda::render(){
         p->aplica();
         p->translate(org->x,org->y);
         p->aplica();
-        line(org->x,org->y, p->x, p->y);
+        
+        org->pLine(*p);
     }
 }
