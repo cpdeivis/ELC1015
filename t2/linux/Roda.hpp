@@ -14,6 +14,7 @@ class Roda{
     public:
         Roda(Point * origem);
         void render();
+        ~Roda();
 };
 
 #endif

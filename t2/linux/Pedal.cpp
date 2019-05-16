@@ -8,18 +8,14 @@ Pedal::Pedal(Point * pc){
 }
 
 void Pedal::render(){
+    p1->translate(pc->x, pc->y);
+    p1->rotate(0.05);
     p1->translate(-pc->x, -pc->y);
     p1->aplica();
-    p1->rotate(0.05);
-    p1->aplica();
-    p1->translate(pc->x, pc->y);
-    p1->aplica();
 
-    p2->translate(-pc->x, -pc->y);
-    p2->aplica();
-    p2->rotate(0.05);
-    p2->aplica();
     p2->translate(pc->x, pc->y);
+    p2->rotate(0.05);
+    p2->translate(-pc->x, -pc->y);
     p2->aplica();
 
     color(0,0,0);
@@ -38,4 +34,9 @@ Point * Pedal::getP1(){
 
 Point * Pedal::getP2(){
     return this->p2;   
+}
+
+Pedal::~Pedal(){
+    delete p1;
+    delete p2;
 }

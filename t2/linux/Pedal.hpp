@@ -15,7 +15,8 @@ class Pedal{
         Pedal(Point * pc);
         void render();
         Point * getP1();
-        Point * getP2(); 
+        Point * getP2();
+        ~Pedal();
 };
 
 #endif

@@ -78,3 +78,7 @@ void Point::cIntersect(Point &p2, double r0, double r1, Point &res){
     res.x = x2 + h*(dy)/d;;
     res.y = y2 - h*(dx)/d;
 }
+
+Point::~Point(){
+    delete &mtx;
+}
