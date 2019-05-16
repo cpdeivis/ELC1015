@@ -7,6 +7,8 @@
 #define CICLISTA_H
 
 #include "Point.hpp"
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
 #include "Roda.hpp"
 #include "Pedal.hpp"
 

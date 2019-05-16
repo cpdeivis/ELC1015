@@ -1,3 +1,5 @@
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
 #include "Pedal.hpp"
 #include "gl_canvas2d.hpp"
 
@@ -8,11 +10,12 @@ Pedal::Pedal(Point * pc){
 }
 
 void Pedal::render(){
+    //posicionamento do pedal 1
     p1->translate(pc->x, pc->y);
     p1->rotate(0.05);
     p1->translate(-pc->x, -pc->y);
     p1->aplica();
-
+    //posicionamento do pedal 2
     p2->translate(pc->x, pc->y);
     p2->rotate(0.05);
     p2->translate(-pc->x, -pc->y);

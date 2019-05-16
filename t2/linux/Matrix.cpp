@@ -1,3 +1,5 @@
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
 #include "Matrix.hpp"
 #include <cmath>
 
@@ -7,6 +9,7 @@ Matrix::Matrix(){
     this->loadIdentity();
 }
 
+//Implementação da Operação de Multiplicação
 Matrix Matrix::operator*(Matrix & B){
     Matrix result;
 
@@ -19,7 +22,7 @@ Matrix Matrix::operator*(Matrix & B){
 
     return result;
 }
-
+//Multiplicação da Matriz por um Vetor 1x3
 void Matrix::byPoint(double &x, double &y){
     double B[] {x, y, 1};
     double result[] {0,0,0};

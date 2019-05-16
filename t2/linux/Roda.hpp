@@ -1,3 +1,5 @@
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
 #ifndef RODA_H
 #define RODA_H
 
@@ -6,6 +8,7 @@
 
 #pragma once
 
+//Classe para a roda da Bicicleta
 class Roda{
     private:
         Point * org;

@@ -1,10 +1,12 @@
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
 #include <iostream>
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h>
 #include "gl_canvas2d.hpp"
 #include "Ciclista.hpp"
 
-Ciclista * bike;
+Ciclista * bike;//Variável global para o ciclista
 
 //*-- FUNÇÕES DA CANVAS --*
 void keyboard(int key){
@@ -19,18 +21,20 @@ void mouse(int button, int state, int wheel, int direction, int x, int y){
     //nothing to do
 }
 void render(){
+    // RENDER DO CENÁRIO 
     color(0.117647059,0.631372549,0.949019608);
     rectFill(0, 100,largura,altura);
     color(1,0,0);
     circleFill(largura, altura, 80, 30);
     color(.6,.6,.6);
     rectFill(0,0,largura,80);
+    //RENDER DO CICLISTA
     bike->render();
 }
 //END FUNÇÕES DA CANVAS
 
 int main(int argc, char const *argv[]){
-    bike = new Ciclista();
+    bike = new Ciclista();//constroi a classe
 
     initCanvas(500, 400, "Trabalho 2 - Deivis Costa Pereira");
     runCanvas();

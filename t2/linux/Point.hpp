@@ -1,10 +1,11 @@
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
 #ifndef POINT_H
 #define POINT_H
 
 #include "Matrix.hpp"
 
 #pragma once
-
 class Point{
     private:
         Matrix mtx; 

@@ -1,12 +1,12 @@
-/* Classe da Matriz de Transformações
-*  Transformações: Rotação, Translação, Escala
-*/
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
 
 #ifndef MATRIX_H
 #define MATRIX_H
 
 #pragma once
-
+/* Classe da Matriz de Transformações
+*  Transformações: Rotação, Translação, Escala */
 class Matrix{
     private:
         double m[3][3]; //em coordenadas homogêneas

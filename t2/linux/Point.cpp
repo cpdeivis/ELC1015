@@ -1,3 +1,6 @@
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
+
 #include "Point.hpp"
 #include "gl_canvas2d.hpp"
 #include <cmath>
@@ -19,7 +22,7 @@ void Point::rotate(double ang){
     Matrix R;
     R(0,0) = cos(ang);
     R(0,1) = sin(ang);
-    R(1,0) = -sin(ang);
+    R(1,0) = -sin(ang);//valor alterado para ficar em rotação horária
     R(1,1) =  cos(ang);
 
     mtx = mtx * R;

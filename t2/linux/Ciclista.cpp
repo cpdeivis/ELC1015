@@ -1,3 +1,5 @@
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
 #include "Ciclista.hpp"
 #include "gl_canvas2d.hpp"
 #include <cmath>

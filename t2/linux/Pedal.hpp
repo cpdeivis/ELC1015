@@ -1,3 +1,5 @@
+/* Deivis Costa Pereira */
+/* dcpereira@inf.ufsm.br */
 #ifndef PEDAL_H
 #define PEDAL_H
 
