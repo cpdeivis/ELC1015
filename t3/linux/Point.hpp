@@ -9,6 +9,11 @@ class Point{
         Point();
         Point(double x, double y);
         Point(double x, double y, double z);
+
+        void RotateX(double ang);
+        void RotateY(double ang);
+        void RotateZ(double ang);
+        void Translate(double x, double y, double z);
 };
 
 #endif
