@@ -8,7 +8,7 @@
 
 class Superficie{
     private:
-        Point ** malha;
+        std::vector<std::vector<Point *>> malha;
         int npontos;
         int nfaces;
     
@@ -16,6 +16,7 @@ class Superficie{
         Superficie(int p, int f);
         void aplica(std::vector<Point *> pontos);
         void render();
+        void moves(bool eixo, bool op);
 
         ~Superficie();
 };

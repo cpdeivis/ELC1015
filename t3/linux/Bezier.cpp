@@ -3,10 +3,13 @@
 
 #include "Bezier.hpp"
 #include "gl_canvas2d.hpp"
+#include <iostream>
 #include <cmath>
 
-Bezier::Bezier(int n){
+Bezier::Bezier(int n, Point * p1, Point * p2){
     cpontos = n;
+    this->p1 = p1;
+    this->p2 = p2;
 }
 
 double fatorial(int n){
@@ -62,4 +65,27 @@ void Bezier::render(){
     for(Point * p : this->pcontrole){
         point(p->x, p->y);
     }
+    glPointSize(1);
+
+    rect(p1->x, p1->y, p2->x, p2->y);
+}
+
+bool Bezier::Colision(double x, double y, Point * m){
+    if(x > p1->x + 5 && x < p2->x -5) /* Verifica se o Cursor está nos Limites da Area */
+        if(y > p1->y + 5 && y < p2->y -5){ /* Coloca uma margem de segurança = 5px */
+            for(auto p : pcontrole){
+                if(p->Colision(x,y,4)){
+                    m = p;
+                    std::cout << "\n" << m->x << "|" << m->y;
+                    return true;
+                }
+            }
+            
+            Point * p = new Point((double)x, (double)y);
+            pcontrole.push_back(p);
+
+            return true;
+        }
+    
+    return false;
 }

@@ -7,6 +7,7 @@ class Point{
     public:
         double x, y, z;
         Point();
+        Point(const Point & p);
         Point(double x, double y);
         Point(double x, double y, double z);
 
@@ -14,6 +15,9 @@ class Point{
         void RotateY(double ang);
         void RotateZ(double ang);
         void Translate(double x, double y, double z);
+        void Projection(double d);
+        
+        bool Colision(double x, double y, double s);
 };
 
 #endif

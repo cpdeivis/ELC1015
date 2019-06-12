@@ -7,14 +7,20 @@
 #include "Point.hpp"
 
 class Bezier{
+    private:
+        Point *p1;/* Area de desenho da curva eh */
+        Point *p2;/*        definida por p1 e p2 */
+
     public:
         std::vector<Point *> pcontrole;//vetor de pontos de controle
         std::vector<Point *> pcurva;//vetor de pontos da curva
         int cpontos;//quantidade de pontos na curva
 
-        Bezier(int n);
+        Bezier(int n, Point * p1, Point* p2);
         void aplica();
         void render();
+
+        bool Colision(double x, double y, Point * m);
 };
 
 #endif
