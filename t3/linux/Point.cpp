@@ -57,5 +57,5 @@ void Point::Projection(double d){
 }
 
 bool Point::Colision(double x, double y, double s){
-    return (x > this->x && x < this->x+s) && (y > this->y-s && y < this->y);
+    return (x > this->x-s && x < this->x+s) && (y > this->y-s && y < this->y+s);
 }

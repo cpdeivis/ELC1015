@@ -3,7 +3,6 @@
 
 #include "Bezier.hpp"
 #include "gl_canvas2d.hpp"
-#include <iostream>
 #include <cmath>
 
 Bezier::Bezier(int n, Point * p1, Point * p2){
@@ -55,6 +54,10 @@ void Bezier::aplica(){
 }
 
 void Bezier::render(){
+    color(1,1,1);
+    rectFill(p1->x, p1->y, p2->x, p2->y);
+    color(0,0,0);
+    rect(p1->x, p1->y, p2->x, p2->y);
     glPointSize(2);
     color(1,0,0);
     for(Point * p : this->pcurva){
@@ -66,26 +69,30 @@ void Bezier::render(){
         point(p->x, p->y);
     }
     glPointSize(1);
-
-    rect(p1->x, p1->y, p2->x, p2->y);
 }
 
-bool Bezier::Colision(double x, double y, Point * m){
+double Bezier::getX(double x){
+    return (x > p1->x + 5 ? (x < p2->x -5 ? x : p2->x -5) : p1->x + 5);
+}
+
+double Bezier::getY(double y){
+    return (y > p1->y + 5 ? (y < p2->y -5 ? y : p2->y -5) : p1->y + 5);
+}
+
+Point * Bezier::Colision(double x, double y){
     if(x > p1->x + 5 && x < p2->x -5) /* Verifica se o Cursor está nos Limites da Area */
         if(y > p1->y + 5 && y < p2->y -5){ /* Coloca uma margem de segurança = 5px */
             for(auto p : pcontrole){
-                if(p->Colision(x,y,4)){
-                    m = p;
-                    std::cout << "\n" << m->x << "|" << m->y;
-                    return true;
+                if(p->Colision(x,y,5)){
+                    // std::cout << "\n" << p->x << "|" << p->y;
+                    return p;
                 }
             }
             
             Point * p = new Point((double)x, (double)y);
             pcontrole.push_back(p);
-
-            return true;
+            return p;
         }
     
-    return false;
+    return NULL;
 }

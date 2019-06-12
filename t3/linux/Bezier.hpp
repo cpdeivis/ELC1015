@@ -20,7 +20,10 @@ class Bezier{
         void aplica();
         void render();
 
-        bool Colision(double x, double y, Point * m);
+        double getX(double x);
+        double getY(double y);
+
+        Point * Colision(double x, double y);
 };
 
 #endif

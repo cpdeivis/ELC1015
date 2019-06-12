@@ -9,17 +9,20 @@
 class Superficie{
     private:
         std::vector<std::vector<Point *>> malha;
-        int npontos;
-        int nfaces;
-    
+        double animation;
+
     public:
         double zang;
         double xang;
+        int npontos;
+        int nfaces;
         
         Superficie(int p, int f);
         void aplica(std::vector<Point *> pontos);
         void render();
-        void moves(bool eixo, bool op);
+        void moves(bool eixo, bool op, std::vector<Point *> pontos);
+
+        void clear();
 
         ~Superficie();
 };

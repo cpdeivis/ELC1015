@@ -8,6 +8,7 @@
 Superficie::Superficie(int p, int f){
     npontos = p;
     nfaces = f;
+    animation = 0.005; 
 }
 
 void Superficie::aplica(std::vector<Point *> pontos){
@@ -24,54 +25,74 @@ void Superficie::aplica(std::vector<Point *> pontos){
         data.clear();
         for(int j = 0; j < npontos; j++){
             data.push_back(new Point(*pontos[j]));
-            data[j]->Translate(-90,-350,0);
+            //Operações sobre o Ponto
+            data[j]->Translate(-10,-10,0);
             data[j]->RotateY(ang);
             data[j]->RotateZ(zang);
             data[j]->RotateX(xang);
-            data[j]->Translate(440,350,0);
+            data[j]->Translate(400,10,0);
         }
 
         malha.push_back(data);
     }
 }
 
-void Superficie::moves(bool eixo, bool op){
+void Superficie::moves(bool eixo, bool op, std::vector<Point *> pontos){
     if(!malha.empty()){
-        double step = 0.005;
-        if(eixo){
-            xang = op ? step : -step;
-            //xang = xang > PI_2 || xang < 0 ? 0 : xang;
-        } else{
-            zang = op ? step : -step;
-            //zang = zang > PI_2 || zang < 0 ? 0 : zang;
+        double step = op ? 0.005 : -0.005;//verifica se soma ou diminui
+        if(eixo){//True -> X
+            xang += step;
+        } else{//False -> Z
+            zang += step;
         }
-        for(auto vet : malha){
-            for(auto p : vet){
-                p->Translate(-440,-350,0);
-                p->RotateZ(zang);
-                p->RotateX(xang);
-                p->Translate(440,350,0);
-            }
-        }
+        aplica(pontos);//reconstroi a malha
     }
 }
 
 void Superficie::render(){
     if(!malha.empty()){
+        //Animação =/
+        for(auto vet : malha){
+            for(auto p : vet){
+                //Operações para a animação
+                p->Translate(-440,-350,0);
+                p->RotateY(animation);
+                p->Translate(440,350,0);
+            }
+        } 
         color(0,0,0);
-        glPointSize(2);
+        //Desenha as arestas da malha
+        for(int i = 0; i < nfaces; i++){
+            for(int j = 0; j < npontos; j++){
+                if(i == nfaces-1){
+                    line(malha[i][j]->x, malha[i][j]->y, malha[0][j]->x, malha[0][j]->y);
+                    if(j != npontos -1){
+                        line(malha[i][j]->x, malha[i][j]->y, malha[i][j+1]->x, malha[i][j+1]->y);
+                    }
+                }else{
+                    line(malha[i][j]->x, malha[i][j]->y, malha[i+1][j]->x, malha[i+1][j]->y);
+                    if(j != npontos -1){
+                        line(malha[i][j]->x, malha[i][j]->y, malha[i][j+1]->x, malha[i][j+1]->y);
+                    }
+                }
+            }
+        }
+        color(1,0,0);
+        glPointSize(3);
+        //Desenha os vertices da malha
         for(auto vet : malha){
             for(auto p : vet){
                 point(p->x, p->y);
             }
         }
         glPointSize(1);
-        for(int i = 0; i < nfaces-1; i++){
-            for(int j = 0; j < npontos-1; j++){
-                line(malha[i][j]->x, malha[i][j]->y, malha[i+1][j]->x, malha[i+1][j]->y );
-                line(malha[i][j]->x, malha[i][j]->y, malha[i][j+1]->x, malha[i][j+1]->y );
-                line(malha[i][j]->x, malha[i][j]->y, malha[i+1][j+1]->x, malha[i+1][j+1]->y );
-            }
-        }
     }
+}
+
+void Superficie::clear(){
+    for(auto vet : malha)
+        vet.clear();
+    malha.clear();
+
+    zang = xang = 0.0;
 }
