@@ -6,6 +6,7 @@
 #include "gl_canvas2d.hpp"
 #include "Bezier.hpp"
 #include "Superficie.hpp"
+#include <string>
 
 #define DIM 700
 
@@ -19,6 +20,14 @@ void keyboard(int key){
     if(key == 99){//Tecle'C': Limpar a Curva
         b->pcontrole.clear();
         b->pcurva.clear();
+    } else if(key == 201){
+        s->moves(false, true);
+    } else if(key == 203){
+        s->moves(false, false);
+    } else if(key == 200){
+        s->moves(true, false);
+    } else if(key == 202){
+        s->moves(true, true);
     }
 }
 void keyboardUp(int key){
@@ -37,6 +46,10 @@ void mouse(int button, int state, int wheel, int direction, int x, int y){
 void render(){
     b->render();
     s->render();
+
+    color(1,0,0);
+    text(600, 690, ("x:" + std::to_string(s->xang)).c_str());
+    text(600, 670, ("z:" + std::to_string(s->zang)).c_str());
 }
 //END FUNÇÕES DA CANVAS
 

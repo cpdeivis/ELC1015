@@ -13,6 +13,9 @@ class Superficie{
         int nfaces;
     
     public:
+        double zang;
+        double xang;
+        
         Superficie(int p, int f);
         void aplica(std::vector<Point *> pontos);
         void render();

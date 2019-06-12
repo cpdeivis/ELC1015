@@ -26,10 +26,33 @@ void Superficie::aplica(std::vector<Point *> pontos){
             data.push_back(new Point(*pontos[j]));
             data[j]->Translate(-90,-350,0);
             data[j]->RotateY(ang);
+            data[j]->RotateZ(zang);
+            data[j]->RotateX(xang);
             data[j]->Translate(440,350,0);
         }
 
         malha.push_back(data);
+    }
+}
+
+void Superficie::moves(bool eixo, bool op){
+    if(!malha.empty()){
+        double step = 0.005;
+        if(eixo){
+            xang = op ? step : -step;
+            //xang = xang > PI_2 || xang < 0 ? 0 : xang;
+        } else{
+            zang = op ? step : -step;
+            //zang = zang > PI_2 || zang < 0 ? 0 : zang;
+        }
+        for(auto vet : malha){
+            for(auto p : vet){
+                p->Translate(-440,-350,0);
+                p->RotateZ(zang);
+                p->RotateX(xang);
+                p->Translate(440,350,0);
+            }
+        }
     }
 }
 
@@ -47,6 +70,7 @@ void Superficie::render(){
             for(int j = 0; j < npontos-1; j++){
                 line(malha[i][j]->x, malha[i][j]->y, malha[i+1][j]->x, malha[i+1][j]->y );
                 line(malha[i][j]->x, malha[i][j]->y, malha[i][j+1]->x, malha[i][j+1]->y );
+                line(malha[i][j]->x, malha[i][j]->y, malha[i+1][j+1]->x, malha[i+1][j+1]->y );
             }
         }
     }

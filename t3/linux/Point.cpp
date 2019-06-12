@@ -27,18 +27,21 @@ Point::Point(double x, double y, double z){
 }
 
 void Point::RotateX(double ang){
+    double temp = y;
     y = y*cos(ang) - z*sin(ang);
-    z = y*sin(ang) + z*cos(ang);
+    z = temp*sin(ang) + z*cos(ang);
 }
 
 void Point::RotateY(double ang){
+    double temp = x;
     x = x*cos(ang) + z*sin(ang);
-    z = -x*sin(ang) + z*cos(ang);
+    z = -temp*sin(ang) + z*cos(ang);
 }
 
 void Point::RotateZ(double ang){
+    double temp = x;
     x = x*cos(ang) - y*sin(ang);
-    y = x*sin(ang) + y*cos(ang);
+    y = temp*sin(ang) + y*cos(ang);
 }
 
 void Point::Translate(double x, double y, double z){
